@@ -1,0 +1,91 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.1.0"
+  description: API of the Raspberry PI GPIO Control Service
+  contact:
+    name: Bernd Moeller
+    url: bmoellerit.de
+    email: bernd@bmoellerit.de
+  title: Raspi-API
+host: localhost:8082
+schemes:
+- http
+produces: 
+- application/json
+tags:
+  - name: version
+
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /version:
+    # This is a HTTP operation
+    get:
+      tags:
+        - version
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Gets the `Version` objects.
+      # Expected responses for this operation:
+      operationId: getVersion
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            $ref: '#/definitions/Version'
+          headers:
+            X-IPAddress: 
+              description: |
+                Returns the IP-Address of the caller
+              type: string
+
+  /configs:
+    get:
+      summary: Retrieve a list of Key Values for the Raspberry PI configuration
+      operationId: getConfig
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Config'
+
+# 
+# Definition Area
+#
+definitions:
+# Version object
+  Version:
+    type: object
+    title: Version Object
+    description: |
+      Contains Version Information about the service
+    properties:
+      major:
+        type: integer
+      minor:
+        type: integer
+      fix:
+        type: integer
+
+  Config:
+    type: object
+    title: Configuration Object
+    description: |
+      Raspberry PI GPIO Configuration Object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
+  

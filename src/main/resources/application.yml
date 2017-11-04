@@ -1,0 +1,7 @@
+raspi:
+  configurl: https://bmcodemaster.herokuapp.com
+  configrate: 10000
+
+spring:
+ profiles:
+   active: rpi
